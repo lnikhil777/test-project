@@ -3,24 +3,25 @@ pipeline {
   stages {
     stage ('BUILD') {
       steps {
-        echo "This is Build stage"
-        sh 'sleep 5'
-      }
-    }
-    
-    stage ('TEST') {
-      steps {
-        echo "This is Test stage"
-        sh 'sleep 5'
+        echo "this is a build stage"
       }
     }
 
-    stage ('DEPLOY') {
-      steps {
-        echo "This is Deploy stage"
-         sh 'sleep 5'
+    stage ( 'test parallel') {
+    parallel {
+      stage ('test on chrome 1') {
+      steps  {
+        echo "testing on server 1)"
+
+      }
+      }
+      stage ('test on server 2') {
+        steps {
+          echo "testing on server 2"
+        }
       }
     }
+    }
   }
-  
 }
+    
